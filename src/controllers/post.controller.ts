@@ -2,14 +2,12 @@ import { Request, Response } from 'express';
 import Post from '../models/Post.model';
 
 export const getPost = async (req: Request, res: Response,) => {
-
     try {
         const posts = await Post.find();
         res.status(200).json({ data: posts });
     } catch (error) {
         console.log(error);
     }
-
 }
 
 export const createPost = async (req: Request, res: Response) => {
