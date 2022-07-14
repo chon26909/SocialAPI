@@ -11,6 +11,7 @@ const app: Application = express();
 app.use(express.json())
 app.use(cors({ origin: ["*"] }))
 
+app.use('/auth', routes.AuthRoute);
 app.use('/post', routes.PostRoute);
 
 const port: number = Number(process.env.PORT!);
