@@ -20,7 +20,6 @@ export const registerWithEmail = async (req: Request, res: Response) => {
     try {
 
         const { email, password, firstname, lastname } = req.body;
-
         const existingUser = await User.findOne({ email });
 
         if (existingUser) {
@@ -32,15 +31,6 @@ export const registerWithEmail = async (req: Request, res: Response) => {
 
         const role = 'member';
         const user = await User.create({ email, password: userPassword, salt, role, firstname, lastname });
-
-        // req.session.uid = user.id;
-        // req.session.loggedIn = true;
-        // req.session.user = {
-        //     role: user.role,
-        //     displayName: user.displayName
-        // }
-
-        console.log('register user ', user);
 
         const token = jwt.sign({uid: user.id}, process.env.SECRET_JWT!);
 
@@ -54,7 +44,6 @@ export const registerWithEmail = async (req: Request, res: Response) => {
 export const loginWithEmail = async (req: Request, res: Response) => {
 
     try {
-
         const { email, password } = req.body;
         const user = await User.findOne({ email });
 
@@ -63,22 +52,12 @@ export const loginWithEmail = async (req: Request, res: Response) => {
             const validation = await validatePassword(password, user.password, user.salt);
 
             if (validation) {
-
-                // req.session.uid = user.id;
-                // req.session.loggedIn = true;
-                // req.session.user = {
-                //     role: user.role,
-                //     displayName: user.displayName
-                // }
-
                 const token = jwt.sign({uid: user.id}, process.env.SECRET_JWT!);
-
                 return res.status(201).json({ message: 'Login Success', token });
             }
             else {
                 return res.status(400).json({ message: 'Password is not correct' })
             }
-
         }
         else {
             return res.status(400).json({ message: 'Email not found' })
