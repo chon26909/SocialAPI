@@ -2,6 +2,8 @@ import  { Schema, Document, SchemaOptions, model } from "mongoose";
 
 interface PostDocument extends Document { 
     text: string;
+    author: string;
+    tags: string[];
 }
 
 const options: SchemaOptions = { 
@@ -18,6 +20,13 @@ const options: SchemaOptions = {
 const postSchema = new Schema({
     text: {
         type: String
+    },
+    author: { 
+        type: Schema.Types.ObjectId,
+        ref: 'users'
+    },
+    tags: {
+        type: [String]
     }
 }, options);
 
