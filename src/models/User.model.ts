@@ -8,13 +8,19 @@ interface UserDocument extends Document {
     password: string;   
     salt: string;
     role: string;
+    image: string;
 }
 
 const options: SchemaOptions = { 
     toJSON: { 
         transform(doc, ret) { 
-            delete ret.__id;
+            delete ret._id;
             delete ret.__v;
+            delete ret.password;
+            delete ret.salt;
+            delete ret.role;
+            delete ret.createdAt;
+            delete ret.updatedAt;
         }
     },
     timestamps: true
@@ -40,6 +46,9 @@ const userSchema = new Schema({
         type: String
     },
     role: { 
+        type: String
+    },
+    image: {
         type: String
     }
 }, options);
