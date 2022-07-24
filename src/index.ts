@@ -34,9 +34,10 @@ app.use(expressSession(sessionOptions))
 app.use(express.json())
 app.use(cors({ origin: ["*"] }))
 
-app.use('/auth', routes.AuthRoute);
-app.use('/user', routes.userRoute);
-app.use('/post', routes.PostRoute);
+
+app.use('/api/auth', routes.AuthRoute);
+app.use('/api/user', routes.userRoute);
+app.use('/api/post', routes.PostRoute);
 
 const port: number = Number(process.env.PORT!);
 

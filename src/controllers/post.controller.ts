@@ -12,6 +12,19 @@ export const getPost = async (req: Request, res: Response,) => {
     }
 }
 
+export const getPostByUser = async (req: Request, res: Response) => {
+    const uid = req.params.uid;
+    console.log("uid",uid);
+    try {
+        let posts = await Post.find({author: uid})
+                                .populate({path: 'author', model: 'users'});
+
+        res.status(200).json({ data: posts });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const createPost = async (req: Request, res: Response) => {
 
     const { body } = req;
