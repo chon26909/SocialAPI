@@ -1,4 +1,4 @@
-import express,{ Router } from 'express';
+import express, { Router } from 'express';
 import { getPost, createPost, getPostByUser } from '../controllers/post.controller';
 import { vertifyToken } from '../middlewares/vertifyHeader';
 
