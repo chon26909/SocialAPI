@@ -4,6 +4,7 @@ interface PostDocument extends Document {
     text: string;
     author: string;
     tags: string[];
+    picture_name: string
 }
 
 const options: SchemaOptions = { 
@@ -27,7 +28,10 @@ const postSchema = new Schema({
     },
     tags: {
         type: [String]
-    }
+    },
+    picture_name: { 
+        type: String
+    } 
 }, options);
 
 const Post = model<PostDocument>('posts', postSchema);
