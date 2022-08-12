@@ -5,7 +5,7 @@ import * as routes from './routes';
 import cors from 'cors';
 import { connectMongoDB } from './utilities/database';
 import expressSession from 'express-session';
-
+import bodyParser from 'body-parser';
 dotenv.config();
 
 const app: Application = express();
@@ -31,8 +31,9 @@ const sessionOptions: expressSession.SessionOptions = {
     }
 }
 app.use(expressSession(sessionOptions))
-app.use(express.json())
-app.use(cors({ origin: ["*"] }))
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(cors({ origin: ["http://localhost:3000", ""] }))
 
 
 app.use('/api/auth', routes.AuthRoute);
